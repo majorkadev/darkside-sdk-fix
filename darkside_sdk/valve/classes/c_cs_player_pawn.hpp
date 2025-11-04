@@ -351,11 +351,15 @@ public:
 	}
 
 	float get_inaccuracy( ) {
-		using fn_get_inaccuracy_t = float( __fastcall* )( void* );
-		static fn_get_inaccuracy_t fn = reinterpret_cast<fn_get_inaccuracy_t>( g_opcodes->scan( g_modules->m_modules.client_dll.get_name( ), "48 89 5C 24 ? 55 56 57 48 81 EC ? ? ? ? 44 0F 29 84 24"   ) );
+        float x = .0f, y = .0f;
 
-		return fn( this );
-	}
+        using fn_get_inaccuracy_t = float(__fastcall)(void, float, float);
+
+        static fn_get_inaccuracy_t fn = reinterpret_cast<fn_get_inaccuracy_t>( g_opcodes->scan( g_modules->m_modules.client_dll.get_name( ), "48 89 5C 24 ? 55 56 57 48 81 EC ? ? ? ? 44 0F 29 84 24"   ) );
+
+        return fn(this, &x, &y);
+
+    }
 
 	float get_spread( ) {
 		using fn_get_spread_t = float( __fastcall* )( void* );
