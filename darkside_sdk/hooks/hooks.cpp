@@ -52,8 +52,9 @@ bool c_hooks::initialize( ) {
 	mark_interp_latch_flags_dirty::m_mark_interp_latch_flags_dirty.hook(g_opcodes->scan(g_modules->m_modules.client_dll.get_name(), "40 53 56 57 48 83 EC ? 80 3D"), mark_interp_latch_flags_dirty::hk_mark_interp_latch_flags_dirty);
 
 	draw_scope_overlay::m_draw_scope_overlay.hook( g_opcodes->scan( g_modules->m_modules.client_dll.get_name( ), "48 8B C4 53 57 48 83 EC ? 48 8B FA" ), draw_scope_overlay::hk_draw_scope_overlay );
-
-	get_field_of_view::m_get_field_of_view.hook( g_opcodes->scan( g_modules->m_modules.client_dll.get_name( ), "40 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 85 C0 74" ), get_field_of_view::hk_get_field_of_view );
+	
+	// #xref: 30 index in CCSPlayerBase_CameraServices
+	get_field_of_view::m_get_field_of_view.hook( g_opcodes->scan( g_modules->m_modules.client_dll.get_name( ), "40 53 48 83 EC ? 48 8B D9 E8 ? ? ? ? 48 85 C0 74 ? 48 8B C8 48 83 C4" ), get_field_of_view::hk_get_field_of_view );
 	
 	LOG_INFO( xorstr_( "[+] Hooks initialization completed!" ) );
 	return true;
